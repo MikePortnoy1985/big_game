@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export const Layout = ({ id, title, descr, urlBg, colorBg }) => {
    return (
-      <section className={s.root} id={id} style={{ backgroundImage: `url(${urlBg})`, backgroundColor: `${colorBg}` }}>
+      <section className={s.root} id={id} style={{ backgroundImage: `url(${urlBg})`, backgroundColor: colorBg }}>
          <div className={s.wrapper}>
             <article>
                <div className={s.title}>

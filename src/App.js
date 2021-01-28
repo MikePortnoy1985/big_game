@@ -7,7 +7,7 @@ import bg2 from './assets/bg1.jpg'
 export const App = () => {
    return (
       <>
-         <Header title={"Pokemons's BIG Game"} descr={'Добро пожаловать на БОЛЬШУЮ игру Покемонов'} />
+         <Header title="Pokemons's BIG Game" descr='Добро пожаловать на БОЛЬШУЮ игру Покемонов' />
          <Layout id={1} title={'Title 1'} descr={'Some descr'} urlBg={bg1} />
          <Layout id={2} title={'Title 2'} descr={'Some descr'} colorBg={'aquamarine'} />
          <Layout id={3} title={'Title 3'} descr={'Some descr'} urlBg={bg2} />
