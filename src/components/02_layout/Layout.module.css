@@ -53,7 +53,7 @@ p {
 }
 
 .descFull {
-   grid-column-end: span 4;
+   grid-column-end: span 4 !important;
    margin-bottom: 2rem;
 }
 

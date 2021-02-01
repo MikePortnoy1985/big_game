@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 export const PokemonCard = ({ name, img, id, type, values }) => {
    const [isActive, setActive] = useState(false)
    const handleClick = () => {
-      setActive(prev => !prev)
+      setActive(!isActive)
    }
 
    return (
