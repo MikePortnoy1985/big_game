@@ -52,16 +52,16 @@ p {
    line-height: 1.9rem;
 }
 
-.descFull {
-   grid-column-end: span 4 !important;
-   margin-bottom: 2rem;
-}
-
 .desc {
    grid-column-end: span 2;
    background: #ffffffaa;
    padding: 2rem;
    text-align: justify;
+}
+
+.descFull {
+   grid-column-end: span 4;
+   margin-bottom: 2rem;
 }
 
 @media only screen and (max-width: 1149px) {
