@@ -1,5 +1,7 @@
 import s from './Layout.module.css'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
+import React from 'react'
 
 export const Layout = ({ id, title, urlBg, colorBg, children }) => {
    return (
@@ -10,7 +12,7 @@ export const Layout = ({ id, title, urlBg, colorBg, children }) => {
                   <h3>{title}</h3>
                   <span className={s.separator} />
                </div>
-               <div className={children ? `${s.desc} ${s.descFull}` : s.desc}>{children}</div>
+               <div className={cn(s.desc, { [s.descFull]: children })}>{children}</div>
             </article>
          </div>
       </section>
