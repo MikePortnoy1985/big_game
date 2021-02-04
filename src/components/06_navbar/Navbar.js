@@ -2,13 +2,13 @@ import cn from 'classnames'
 import PropTypes from 'prop-types'
 import s from './Navbar.module.css'
 
-export const NavBar = ({ handleClick, isActive }) => {
+export const NavBar = ({ handleClick, bgActive, isActive }) => {
    return (
-      <nav className={s.navbar}>
+      <nav className={cn(s.navbar, { [s.bgActive]: bgActive })}>
          <div className={s.navWrapper}>
             <p className={s.brand}>LOGO</p>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className={cn(s.menuButton, { [s.active]: isActive })} onClick={handleClick}>
+            <a className={cn(s.menuButton, { [s.active]: isActive === true })} onClick={handleClick}>
                <span />
             </a>
          </div>
@@ -19,4 +19,9 @@ export const NavBar = ({ handleClick, isActive }) => {
 NavBar.propTypes = {
    handleClick: PropTypes.func.isRequired,
    isActive: PropTypes.bool.isRequired,
+   bgActive: PropTypes.bool.isRequired,
+}
+
+NavBar.defaultProps = {
+   bgActive: false,
 }

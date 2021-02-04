@@ -1,28 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import s from './Menu.module.css'
 import cn from 'classnames'
 
+const MENU = [
+   {
+      title: 'HOME',
+      to: '/',
+   },
+   {
+      title: 'GAME',
+      to: '/game',
+   },
+   {
+      title: 'ABOUT',
+      to: '/about',
+   },
+   {
+      title: 'CONTACT',
+      to: '/contact',
+   },
+]
+
 export const Menu = ({ handleClick, isActive }) => {
    return (
-      <div className={cn(s.menuContainer, { [s.active]: isActive })} onClick={handleClick}>
+      <div
+         className={cn(s.menuContainer, { [s.active]: isActive === true, [s.deactive]: isActive === false })}
+         onClick={handleClick}>
          <div className={s.overlay} />
-         <div className={s.menuContainer}>
-            <ul>
-               <li>
-                  <a href='#welcome'>HOME</a>
+         <ul>
+            {MENU.map(({ title, to }, index) => (
+               <li key={index} style={{ zIndex: 1, opacity: 1 }}>
+                  <Link to={to}>{title}</Link>
                </li>
-               <li>
-                  <a href='#game'>GAME</a>
-               </li>
-               <li>
-                  <a href='#about'>ABOUT</a>
-               </li>
-               <li>
-                  <a href='#contact'>CONTACT</a>
-               </li>
-            </ul>
-         </div>
+            ))}
+         </ul>
       </div>
    )
 }
