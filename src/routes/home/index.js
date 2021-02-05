@@ -1,9 +1,8 @@
+import React from 'react'
 import s from './Style.module.css'
 import { Header } from '../../components/01_header/Header.js'
 import { Layout } from '../../components/02_layout/Layout.js'
-import { Footer } from '../../components/03_footer/Footer.js'
 import { PokemonCard } from '../../components/pokemonCard/PokemonCard.js'
-import { MenuHeader } from '../../components/04_menuHeader/MenuHeader'
 import bg1 from '../../assets/bg2.jpg'
 import bg2 from '../../assets/bg1.jpg'
 import jsonData from './pokemons.json'
@@ -12,9 +11,22 @@ import PropTypes from 'prop-types'
 const POKEMONS = [...jsonData]
 
 export const HomePage = ({ handleChangePage }) => {
+   const [pokemons, setPokemons] = React.useState(POKEMONS)
+
+   const handleActive = id => {
+      setPokemons(() =>
+         POKEMONS.map(item => {
+            if (item.id === id) {
+               item.active = !item.active
+               return item
+            }
+            return item
+         }),
+      )
+   }
+
    return (
       <>
-         <MenuHeader />
          <Header
             title="Pokemon's BIG Game"
             descr='This is a simple triple triad card game'
@@ -32,14 +44,16 @@ export const HomePage = ({ handleChangePage }) => {
          </Layout>
          <Layout id={2} title={'Cards'} colorBg={'aquamarine'}>
             <div className={s.flex}>
-               {POKEMONS.map(pokemon => (
+               {pokemons.map(pokemon => (
                   <PokemonCard
                      key={pokemon.id}
+                     isActive={pokemon.active}
                      name={pokemon.name}
                      img={pokemon.img}
                      id={pokemon.id}
                      type={pokemon.type}
                      values={pokemon.values}
+                     handleActive={handleActive}
                   />
                ))}
             </div>
@@ -59,7 +73,6 @@ export const HomePage = ({ handleChangePage }) => {
                captured and changed into the player's color instead.
             </p>
          </Layout>
-         <Footer />
       </>
    )
 }

@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 
-export const GamePage = ({ handleChangePage }) => {
+export const GamePage = () => {
+   const history = useHistory()
    const handleClick = () => {
-      handleChangePage && handleChangePage('app')
+      history.push('/')
    }
 
    return (

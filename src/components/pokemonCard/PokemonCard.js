@@ -4,14 +4,10 @@ import s from './PokemonCard.module.css'
 import cardBack from '../../assets/card-back-side.jpg'
 import PropTypes from 'prop-types'
 
-export const PokemonCard = ({ name, img, id, type, values }) => {
-   const [isActive, setActive] = useState(false)
-   const handleClick = () => {
-      setActive(!isActive)
-   }
-
+export const PokemonCard = ({ name, img, id, type, values, isActive, handleActive }) => {
+   debugger
    return (
-      <div className={s.root} onClick={handleClick}>
+      <div className={s.root} onClick={e => e && handleActive(id)}>
          <div className={cn(s.pokemonCard, { [s.active]: isActive })}>
             <div className={s.cardFront}>
                <div className={`${s.wrap} ${s.front}`}>
@@ -51,10 +47,14 @@ PokemonCard.propTypes = {
    img: PropTypes.string.isRequired,
    id: PropTypes.number.isRequired,
    type: PropTypes.string.isRequired,
+   isActive: PropTypes.bool.isRequired,
    values: PropTypes.shape({
       top: PropTypes.number.isRequired,
       right: PropTypes.number.isRequired,
       bottom: PropTypes.number.isRequired,
       left: PropTypes.number.isRequired,
    }),
+}
+PokemonCard.defaultProps = {
+   isActive: false,
 }
