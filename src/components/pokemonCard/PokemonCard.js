@@ -4,11 +4,10 @@ import s from './PokemonCard.module.css'
 import cardBack from '../../assets/card-back-side.jpg'
 import PropTypes from 'prop-types'
 
-export const PokemonCard = ({ name, img, id, type, values, isActive, handleActive }) => {
-   debugger
+export const PokemonCard = ({ name, img, id, type, values, active, handleActive }) => {
    return (
       <div className={s.root} onClick={e => e && handleActive(id)}>
-         <div className={cn(s.pokemonCard, { [s.active]: isActive })}>
+         <div className={cn(s.pokemonCard, { [s.active]: active })}>
             <div className={s.cardFront}>
                <div className={`${s.wrap} ${s.front}`}>
                   <div className={`${s.pokemon} ${s[type]}`}>
