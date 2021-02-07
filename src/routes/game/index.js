@@ -20,7 +20,6 @@ export const GamePage = () => {
             if (pokemon.id === id) {
                pokemon.active = !pokemon.active
                const key = database.ref().child('pokemons').key
-               console.log(key)
                database.ref(`pokemons/${item[0]}`).update({
                   ...pokemon,
                })
