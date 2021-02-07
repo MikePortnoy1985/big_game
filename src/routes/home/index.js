@@ -1,8 +1,6 @@
 import React from 'react'
-import s from './Style.module.css'
 import { Header } from '../../components/01_header/Header.js'
 import { Layout } from '../../components/02_layout/Layout.js'
-import { PokemonCard } from '../../components/pokemonCard/PokemonCard.js'
 import bg1 from '../../assets/bg2.jpg'
 import bg2 from '../../assets/bg1.jpg'
 import PropTypes from 'prop-types'

@@ -35,7 +35,8 @@
    position: absolute;
    bottom: -300px;
    left: 0;
-   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Trees.svg?sanitize=true) bottom left repeat-x;
+   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Trees.svg?sanitize=true)
+      bottom left repeat-x;
    background-size: cover;
    width: 100%;
    height: 80%;
@@ -58,7 +59,8 @@
    position: absolute;
    bottom: 0;
    left: 0;
-   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Silhouette.svg?sanitize=true) bottom left no-repeat;
+   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Silhouette.svg?sanitize=true)
+      bottom left no-repeat;
    width: 50%;
    height: 50%;
    opacity: 0;
@@ -80,7 +82,8 @@
    top: 0;
    right: 0;
    position: fixed;
-   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Moon.svg?sanitize=true) right 150% no-repeat;
+   background: url(https://raw.githubusercontent.com/yagoestevez/fcc-portfolio/master/src/Images/Moon.svg?sanitize=true)
+      right 150% no-repeat;
    background-size: 30% 30%;
    background-attachment: fixed;
    width: 100%;
