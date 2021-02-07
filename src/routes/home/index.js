@@ -5,26 +5,9 @@ import { Layout } from '../../components/02_layout/Layout.js'
 import { PokemonCard } from '../../components/pokemonCard/PokemonCard.js'
 import bg1 from '../../assets/bg2.jpg'
 import bg2 from '../../assets/bg1.jpg'
-import jsonData from './pokemons.json'
 import PropTypes from 'prop-types'
 
-const POKEMONS = [...jsonData]
-
 export const HomePage = ({ handleChangePage }) => {
-   const [pokemons, setPokemons] = React.useState(POKEMONS)
-
-   const handleActive = id => {
-      setPokemons(() =>
-         POKEMONS.map(item => {
-            if (item.id === id) {
-               item.active = !item.active
-               return item
-            }
-            return item
-         }),
-      )
-   }
-
    return (
       <>
          <Header
@@ -41,22 +24,6 @@ export const HomePage = ({ handleChangePage }) => {
                Each player has five cards in a hand and the aim is to capture the opponent's cards by turning them into
                the player's own color of red or blue.
             </p>
-         </Layout>
-         <Layout id={2} title={'Cards'} colorBg={'aquamarine'}>
-            <div className={s.flex}>
-               {pokemons.map(pokemon => (
-                  <PokemonCard
-                     key={pokemon.id}
-                     isActive={pokemon.active}
-                     name={pokemon.name}
-                     img={pokemon.img}
-                     id={pokemon.id}
-                     type={pokemon.type}
-                     values={pokemon.values}
-                     handleActive={handleActive}
-                  />
-               ))}
-            </div>
          </Layout>
          <Layout id={3} title={'Rules'} urlBg={bg2}>
             <p>
