@@ -1,0 +1,31 @@
+.root {
+   /*height: 2%;*/
+   position: absolute;
+   top: 50%;
+   left: -100%;
+   transform: translate(-50%, -50%);
+   width: 40px;
+}
+.arrow {
+   position: absolute;
+   width: 2.5vmin;
+   height: 2.5vmin;
+   background: transparent;
+   border-top: 1vmin solid white;
+   border-right: 1vmin solid white;
+   box-shadow: 0 0 0 lightgray;
+   transition: all 200ms ease;
+   transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+
+.arrow:hover {
+   border-color: #fce756;
+   box-shadow: 0.5vmin -0.5vmin 0 white;
+}
+.arrow:before {
+   content: '';
+   position: absolute;
+   transform: translate(-40%, -60%) rotate(45deg);
+   width: 200%;
+   height: 200%;
+}
