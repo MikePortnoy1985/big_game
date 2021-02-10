@@ -3,10 +3,21 @@ import s from './PokemonCard.module.css'
 import cardBack from '../../assets/card-back-side.jpg'
 import PropTypes from 'prop-types'
 
-export const PokemonCard = ({ name, img, id, type, values, active, handleActive }) => {
+export const PokemonCard = ({
+   name,
+   img,
+   id,
+   type,
+   values,
+   active,
+   handleSelected,
+   minimize,
+   className,
+   isSelected,
+}) => {
    return (
-      <div className={s.root} onClick={e => e && handleActive(id)}>
-         <div className={cn(s.pokemonCard, { [s.active]: active })}>
+      <div className={s.root} onClick={e => e && handleSelected(id)}>
+         <div className={cn(s.pokemonCard, { [s.active]: active, [s.selected]: isSelected })}>
             <div className={s.cardFront}>
                <div className={`${s.wrap} ${s.front}`}>
                   <div className={`${s.pokemon} ${s[type]}`}>
@@ -19,13 +30,15 @@ export const PokemonCard = ({ name, img, id, type, values, active, handleActive 
                      <div className={s.imgContainer}>
                         <img src={img} alt={name} />
                      </div>
-                     <div className={s.info}>
-                        <span className={s.number}>#{id}</span>
-                        <h3 className={s.name}>{name}</h3>
-                        <small className={s.type}>
-                           Type: <span>{type}</span>
-                        </small>
-                     </div>
+                     {!minimize && (
+                        <div className={s.info}>
+                           <span className={s.number}>#{id}</span>
+                           <h3 className={s.name}>{name}</h3>
+                           <small className={`s.${type}`}>
+                              Type: <span>{type}</span>
+                           </small>
+                        </div>
+                     )}
                   </div>
                </div>
             </div>
@@ -45,14 +58,14 @@ PokemonCard.propTypes = {
    img: PropTypes.string.isRequired,
    id: PropTypes.number.isRequired,
    type: PropTypes.string.isRequired,
-   isActive: PropTypes.bool.isRequired,
+   active: PropTypes.bool.isRequired,
    values: PropTypes.shape({
-      top: PropTypes.number.isRequired,
-      right: PropTypes.number.isRequired,
-      bottom: PropTypes.number.isRequired,
-      left: PropTypes.number.isRequired,
+      top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      bottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
    }),
 }
 PokemonCard.defaultProps = {
-   isActive: false,
+   active: true,
 }

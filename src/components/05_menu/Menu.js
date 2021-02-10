@@ -31,7 +31,7 @@ export const Menu = ({ handleClick, isActive }) => {
          <div className={s.overlay} />
          <ul>
             {MENU.map(({ title, to }, index) => (
-               <li key={index} style={{ zIndex: 1, opacity: 1 }}>
+               <li key={index}>
                   <Link to={to}>{title}</Link>
                </li>
             ))}
@@ -42,5 +42,5 @@ export const Menu = ({ handleClick, isActive }) => {
 
 Menu.propTypes = {
    handleClick: PropTypes.func.isRequired,
-   isActive: PropTypes.bool.isRequired,
+   isActive: PropTypes.oneOf([PropTypes.bool, PropTypes.null]),
 }
