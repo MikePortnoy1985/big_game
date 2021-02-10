@@ -3,16 +3,11 @@ import { Header } from '../../components/01_header/Header.js'
 import { Layout } from '../../components/02_layout/Layout.js'
 import bg1 from '../../assets/bg2.jpg'
 import bg2 from '../../assets/bg1.jpg'
-import PropTypes from 'prop-types'
 
-export const HomePage = ({ handleChangePage }) => {
+export const HomePage = () => {
    return (
       <>
-         <Header
-            title="Pokemon's BIG Game"
-            descr='This is a simple triple triad card game'
-            handleChangePage={handleChangePage}
-         />
+         <Header title="Pokemon's BIG Game" descr='This is a simple triple triad card game' />
          <Layout id={1} title={'Introduction'} urlBg={bg1}>
             <p>
                In the game two players face off against one another, one side playing as "blue", the other as "red" on a
@@ -40,8 +35,4 @@ export const HomePage = ({ handleChangePage }) => {
          </Layout>
       </>
    )
-}
-
-HomePage.propTypes = {
-   handleChangePage: PropTypes.func.isRequired,
 }

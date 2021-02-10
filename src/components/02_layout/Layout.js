@@ -22,8 +22,8 @@ export const Layout = ({ id, title, urlBg, colorBg, children }) => {
 Layout.propTypes = {
    id: PropTypes.number.isRequired,
    title: PropTypes.string.isRequired,
-   urlBg: PropTypes.oneOf([PropTypes.string, PropTypes.null]),
-   colorBg: PropTypes.oneOf([PropTypes.string, PropTypes.null]),
+   urlBg: PropTypes.string,
+   colorBg: PropTypes.string,
 }
 
 Layout.defaultProps = {

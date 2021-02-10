@@ -9,7 +9,7 @@ export const Board = () => {
    return (
       <div className={s.root}>
          <div className={s.playerOne}>
-            {gameContext.pokemons.map(({ name, img, active, id, type, values, isSelected }) => {
+            {Object.values(gameContext.pokemons).map(({ name, img, active, id, type, values, isSelected }) => {
                return (
                   <PokemonCard
                      key={id}
