@@ -26,13 +26,17 @@ export const StartPage = () => {
       firebase.ref(`pokemons/${newKey}`).set(data)
    }
 
+   const addToContext = pokemon => {
+      gameContext.pokemons.push(pokemon)
+   }
+
    const handleSelected = id => {
       setPokemons(prevState =>
          Object.entries(prevState).reduce((acc, item) => {
             const pokemon = { ...item[1] }
             if (pokemon.id === id) {
                pokemon.isSelected = true
-               gameContext.pokemon.push(pokemon)
+               addToContext(pokemon)
             }
             acc[item[0]] = pokemon
             return acc
