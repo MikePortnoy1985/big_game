@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import s from './PokemonCard.module.css'
-import cardBack from '../../assets/card-back-side.jpg'
 import PropTypes from 'prop-types'
 
 export const PokemonCard = ({
@@ -14,6 +13,7 @@ export const PokemonCard = ({
    className,
    isSelected,
    handleSelected,
+   possession
 }) => {
    return (
       <div
@@ -21,7 +21,7 @@ export const PokemonCard = ({
          onClick={handleSelected}>
          <div className={s.cardFront}>
             <div className={cn(s.wrap, s.front)}>
-               <div className={cn(s.pokemon, s[type])}>
+               <div className={cn(s.pokemon, s[type], s[possession])}>
                   <div className={s.values}>
                      <div className={cn(s.count, s.top)}>{values.top}</div>
                      <div className={cn(s.count, s.right)}>{values.right}</div>

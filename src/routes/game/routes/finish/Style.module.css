@@ -1,7 +1,23 @@
+.card{
+   width: 268px;
+   height: 388px;
+   margin: 16px;
+   cursor: pointer;
+}
+
 .flex {
    display: flex;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
+   flex-wrap: wrap;
+}
+
+.cardWrapper {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-around;
    flex-wrap: wrap;
 }
 
@@ -63,17 +79,4 @@
 
 .button:focus {
    outline: 0;
-}
-
-.button:disabled {
-   background: #fff;
-   color: #191f27;
-
-}
-
-.card{
-   width: 268px;
-   height: 388px;
-   margin: 16px;
-   cursor: pointer;
 }
