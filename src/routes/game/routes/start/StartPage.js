@@ -11,12 +11,6 @@ export const StartPage = () => {
    const gameContext = React.useContext(PokemonContext)
    const history = useHistory()
 
-   const getPokemons = async () => {
-      await firebase.ref('pokemons').on('value', snapshot => {
-         setPokemons(snapshot.val())
-      })
-   }
-
    const addPokemon = data => {
       const newKey = firebase.ref('pokemons').push().key
       firebase.ref(`pokemons/${newKey}`).set(data)
@@ -35,17 +29,16 @@ export const StartPage = () => {
    }
 
    React.useEffect(() => {
-      getPokemons()
-   }, [])
+      (async () => {
+         await firebase.ref('pokemons').on('value', snapshot => {
+            setPokemons(snapshot.val())
+         })
+      })()
+   }, [firebase])
 
    return (
       <>
          <div className={s.flex}>
-            <div className={s.buttonWrap}>
-               <button className={s.button} onClick={addPokemon({})}>
-                  Add pokemon
-               </button>
-            </div>
             {Object.entries(pokemons).map(([key, { name, img, active, id, type, values, isSelected }]) => {
                return (
                   <PokemonCard
@@ -72,7 +65,7 @@ export const StartPage = () => {
                   className={s.button}
                   disabled={Object.keys(gameContext.pokemons).length < 5}
                   onClick={() => history.push('/game/board')}>
-                  Start game
+                  {Object.keys(gameContext.pokemons).length < 5 ? 'Choose 5 pokemons' : 'Start game'}
                </button>
             </div>
          </div>

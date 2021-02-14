@@ -8,6 +8,8 @@ import { PokemonContext } from '../../context/PokemonContext'
 export const GamePage = () => {
    const match = useRouteMatch()
    const [selectedPokemons, setSelectedPokemons] = React.useState({})
+   const [enemyPokemons, setEnemyPokemons] = React.useState(null)
+   const [canRedirect, setCanRedirect] = React.useState(false)
 
    const handleSelectedPokemons = (key, pokemon) => {
       setSelectedPokemons(prevState => {
@@ -27,12 +29,16 @@ export const GamePage = () => {
       <PokemonContext.Provider
          value={{
             pokemons: selectedPokemons,
+            enemyPokemons,
+            handleEnemyPokemons: setEnemyPokemons,
+            handlePlayerPokemons: setSelectedPokemons,
             handleSelectedPokemons: handleSelectedPokemons,
+            handleCanRedirect: setCanRedirect
          }}>
          <Switch>
             <Route path={`${match.path}/`} exact component={StartPage} />
             <Route path={`${match.path}/board`} component={Board} />
-            <Route path={`${match.path}/finish`} component={Finish} />
+            {canRedirect && <Route path={`${match.path}/finish`} component={Finish} />}
          </Switch>
       </PokemonContext.Provider>
    )
