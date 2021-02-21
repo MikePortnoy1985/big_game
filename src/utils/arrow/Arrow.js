@@ -12,7 +12,7 @@ export const Arrow = () => {
    return (
       <div className={s.root} onClick={e => e && handleGoHome()}>
          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/anchor-has-content */}
-         <a href='#' className={s.arrow} />
+         <a href='' className={s.arrow} />
       </div>
    )
 }

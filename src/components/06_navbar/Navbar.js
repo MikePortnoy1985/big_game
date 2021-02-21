@@ -9,12 +9,12 @@ export const NavBar = ({ handleClick, bgActive, isActive }) => {
    const match = useRouteMatch('/')
 
    return (
-      <nav className={cn(s.navbar, { [s.bgActive]: bgActive })}>
+      <nav className={cn(s.navbar, { [s.bgActive]: bgActive})}>
          <div className={s.navWrapper}>
             <div style={{ position: 'relative' }}>
                {!match.isExact && <Arrow text={'return to home'} />}
                <div className={s.brand}>
-                  <Logo />
+                  <Logo/>
                </div>
             </div>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
