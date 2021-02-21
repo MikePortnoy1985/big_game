@@ -4,7 +4,6 @@ import { PokemonCard } from '../../../../../components/pokemonCard/PokemonCard'
 import s from './Style.module.css'
 
 export const PlayerBoard = ({ player, cards, onClickCard }) => {
-   debugger
    const [isSelected, setSelected] = React.useState(null)
    return (
       <>

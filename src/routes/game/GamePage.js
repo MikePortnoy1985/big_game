@@ -33,7 +33,7 @@ export const GamePage = () => {
             handleEnemyPokemons: setEnemyPokemons,
             handlePlayerPokemons: setSelectedPokemons,
             handleSelectedPokemons: handleSelectedPokemons,
-            handleCanRedirect: setCanRedirect
+            handleCanRedirect: setCanRedirect,
          }}>
          <Switch>
             <Route path={`${match.path}/`} exact component={StartPage} />

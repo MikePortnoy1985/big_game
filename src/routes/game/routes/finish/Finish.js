@@ -13,11 +13,9 @@ export const Finish = () => {
    const [onlyOnePokemon, setOnlyOnePokemon] = React.useState(true)
 
    const addPokeTocollection = id => {
-      debugger
       if (onlyOnePokemon) {
          setSelected(id)
          const poke = gameContext.enemyPokemons.find(item => item.id === id)
-         console.log('poke', poke)
          const newKey = firebase.ref('pokemons').push().key
          firebase.ref(`pokemons/${newKey}`).set(poke)
          setOnlyOnePokemon(false)

@@ -11,11 +11,6 @@ export const StartPage = () => {
    const gameContext = React.useContext(PokemonContext)
    const history = useHistory()
 
-   const addPokemon = data => {
-      const newKey = firebase.ref('pokemons').push().key
-      firebase.ref(`pokemons/${newKey}`).set(data)
-   }
-
    const handleSelected = key => {
       const pokemon = { ...pokemons[key] }
       gameContext.handleSelectedPokemons(key, pokemon)
@@ -29,7 +24,7 @@ export const StartPage = () => {
    }
 
    React.useEffect(() => {
-      (async () => {
+      ;(async () => {
          await firebase.ref('pokemons').on('value', snapshot => {
             setPokemons(snapshot.val())
          })

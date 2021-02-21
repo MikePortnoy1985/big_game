@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { PokemonCard } from '../../../../components/pokemonCard/PokemonCard'
 import { PokemonContext } from '../../../../context/PokemonContext.js'
@@ -103,8 +104,6 @@ export const Board = () => {
       }
       return () => clearTimeout(id)
    }, [step, board, firstPlayer, secondPlayer])
-
-   
 
    return (
       <div className={s.root}>

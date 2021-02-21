@@ -1,6 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
-import { useLocation, Route, Switch, useRouteMatch, Redirect } from 'react-router-dom'
+import { useLocation, Route, Switch, Redirect } from 'react-router-dom'
 import { HomePage } from './routes/home/Home'
 import { GamePage } from './routes/game/GamePage'
 import { AboutPage } from './routes/about/About'
@@ -13,7 +13,6 @@ import { database } from './api/firebase'
 import s from './App.module.css'
 
 export const App = () => {
-   const match = useRouteMatch('/')
    const location = useLocation()
    const isPadding = location.pathname === '/' || location.pathname === '/game/board'
 

@@ -13,7 +13,7 @@ export const PokemonCard = ({
    className,
    isSelected,
    handleSelected,
-   possession
+   possession,
 }) => {
    return (
       <div
