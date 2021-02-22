@@ -1,45 +1,39 @@
 import React from 'react'
 import { Redirect, useHistory } from 'react-router-dom'
 import { PokemonCard } from '../../../../components/pokemonCard/PokemonCard.js'
-import { PokemonContext } from '../../../../context/PokemonContext.js'
-import { FirebaseContext } from '../../../../context/FirebaseContext.js'
+import { useSelector, useDispatch } from 'react-redux'
+import { putPokeToCoolection, restoreState } from '../../../../store/GamePageSlice'
 import s from './Style.module.css'
 
 export const Finish = () => {
    const history = useHistory()
-   const gameContext = React.useContext(PokemonContext)
-   const firebase = React.useContext(FirebaseContext)
+   const { playerSelectedPokemons, enemyPokemons } = useSelector(state => state.gamePage)
    const [selected, setSelected] = React.useState()
    const [onlyOnePokemon, setOnlyOnePokemon] = React.useState(true)
+   const dispatch = useDispatch()
 
    const addPokeTocollection = id => {
       if (onlyOnePokemon) {
          setSelected(id)
-         const poke = gameContext.enemyPokemons.find(item => item.id === id)
-         const newKey = firebase.ref('pokemons').push().key
-         firebase.ref(`pokemons/${newKey}`).set(poke)
+         dispatch(putPokeToCoolection({ id }))
          setOnlyOnePokemon(false)
       }
    }
 
    const endGameHandler = () => {
-      gameContext.handleEnemyPokemons([])
-      gameContext.handlePlayerPokemons({})
-      gameContext.handleCanRedirect(false)
+      dispatch(restoreState())
       history.push('/game')
    }
 
-   if (gameContext.enemyPokemons.length === 0) {
-      gameContext.handleEnemyPokemons([])
-      gameContext.handlePlayerPokemons({})
-      gameContext.handleCanRedirect(false)
+   if (enemyPokemons.length === 0) {
+      dispatch(restoreState())
       return <Redirect to={'/game'} />
    }
 
    return (
       <div className={s.flex}>
          <div className={s.cardWrapper}>
-            {Object.values(gameContext.pokemons).map(item => {
+            {Object.values(playerSelectedPokemons).map(item => {
                return (
                   <PokemonCard
                      key={item.id}
@@ -59,7 +53,7 @@ export const Finish = () => {
             </button>
          </div>
          <div className={s.cardWrapper}>
-            {gameContext.enemyPokemons.map(item => {
+            {enemyPokemons.map(item => {
                return (
                   <PokemonCard
                      key={item.id}

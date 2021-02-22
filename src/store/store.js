@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { gamePageSlice } from './GamePageSlice'
 
-const reducer = {}
+const reducer = {
+   gamePage: gamePageSlice.reducer,
+}
 
 export const store = configureStore({
    reducer,

@@ -1,9 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { PokemonCard } from '../../../../components/pokemonCard/PokemonCard'
-import { PokemonContext } from '../../../../context/PokemonContext.js'
 import { useHistory } from 'react-router-dom'
 import { PlayerBoard } from './playerBoard/PlayerBoard'
+import { api } from '../../../../api/netlify'
+import { handleCanRedirect } from '../../../../store/GamePageSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { Results } from '../../../../utils/results/Results'
 import s from './Style.module.css'
 
 const winCondition = (board, player1, player2) => {
@@ -22,38 +25,30 @@ const winCondition = (board, player1, player2) => {
 }
 
 export const Board = () => {
-   const gameContext = React.useContext(PokemonContext)
+   const { playerSelectedPokemons, enemyPokemons } = useSelector(state => state.gamePage)
    const [board, setBoard] = React.useState([])
    const [firstPlayer, setFirstPlayer] = React.useState(() => {
-      return Object.values(gameContext.pokemons).map(poke => ({
+      return Object.values(playerSelectedPokemons).map(poke => ({
          ...poke,
          possession: 'blue',
       }))
    })
-   const [secondPlayer, setSecondPlayer] = React.useState([])
+   const [secondPlayer, setSecondPlayer] = React.useState(enemyPokemons)
    const [chooseCard, setChooseCard] = React.useState(null)
    const [step, setStep] = React.useState(0)
+   const [type, setType] = React.useState(null)
 
+   const dispatch = useDispatch()
    const history = useHistory()
 
    React.useEffect(() => {
       ;(async () => {
-         const boardResponse = await fetch(`https://reactmarathon-api.netlify.app/api/board`)
-         const boardRequest = await boardResponse.json()
-         setBoard(boardRequest.data)
-         const secondPlayerResponse = await fetch(`https://reactmarathon-api.netlify.app/api/create-player`)
-         const secondPlayerRequest = await secondPlayerResponse.json()
-         gameContext.handleEnemyPokemons(secondPlayerRequest.data)
-         setSecondPlayer(() => {
-            return secondPlayerRequest.data.map(poke => ({
-               ...poke,
-               possession: 'red',
-            }))
-         })
+         const boardResponse = await api.getBoard()
+         setBoard(boardResponse.data.data)
       })()
    }, [])
 
-   if (Object.keys(gameContext.pokemons).length === 0) {
+   if (Object.keys(playerSelectedPokemons).length === 0) {
       history.replace('/game')
    }
 
@@ -65,15 +60,7 @@ export const Board = () => {
             board,
          }
 
-         const res = await fetch('https://reactmarathon-api.netlify.app/api/players-turn', {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(params),
-         })
-
-         const request = await res.json()
+         const res = await api.handleBoardClick(params)
 
          if (chooseCard.player === 1) {
             setFirstPlayer(prevState => prevState.filter(item => item.id !== chooseCard.id))
@@ -82,7 +69,7 @@ export const Board = () => {
             setSecondPlayer(prevState => prevState.filter(item => item.id !== chooseCard.id))
          }
 
-         setBoard(request.data)
+         setBoard(res.data.data)
          setStep(prevState => prevState + 1)
       }
    }
@@ -93,13 +80,13 @@ export const Board = () => {
          const [count1, count2] = winCondition(board, firstPlayer, secondPlayer)
 
          if (count1 > count2) {
-            alert('WIN')
+            setType('win')
          } else if (count1 < count2) {
-            alert('LOOSE')
+            setType('lose')
          } else {
-            alert('DRAW')
+            setType('draw')
          }
-         gameContext.handleCanRedirect(true)
+         dispatch(handleCanRedirect(true))
          id = setTimeout(() => history.push('/game/finish'), 2000)
       }
       return () => clearTimeout(id)
@@ -107,6 +94,7 @@ export const Board = () => {
 
    return (
       <div className={s.root}>
+         {type && <Results type={type}/>}
          <div className={s.playerOne}>
             <PlayerBoard player={1} cards={firstPlayer} onClickCard={card => setChooseCard(card)} />
          </div>

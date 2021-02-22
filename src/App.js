@@ -8,8 +8,6 @@ import { ContactPage } from './routes/contact/Contact'
 import { NotFoundPage } from './routes/notFound/NotFound'
 import { MenuHeader } from './components/04_menuHeader/MenuHeader'
 import { Footer } from './components/03_footer/Footer'
-import { FirebaseContext } from './context/FirebaseContext'
-import { database } from './api/firebase'
 import s from './App.module.css'
 
 export const App = () => {
@@ -17,25 +15,23 @@ export const App = () => {
    const isPadding = location.pathname === '/' || location.pathname === '/game/board'
 
    return (
-      <FirebaseContext.Provider value={database}>
-         <Switch>
-            <Route path={'/404'} component={NotFoundPage} />
-            <Route>
-               <>
-                  <MenuHeader bgActive={!isPadding} />
-                  <div className={cn(s.wrap, { [s.isHomePage]: isPadding })}>
-                     <Switch>
-                        <Route path={'/'} exact component={HomePage} />
-                        <Route path={'/game'} component={GamePage} />
-                        <Route path={'/about'} component={AboutPage} />
-                        <Route path={'/contact'} component={ContactPage} />
-                        <Route render={() => <Redirect to={'404'} />} />
-                     </Switch>
-                  </div>
-                  <Footer />
-               </>
-            </Route>
-         </Switch>
-      </FirebaseContext.Provider>
+      <Switch>
+         <Route path={'/404'} component={NotFoundPage} />
+         <Route>
+            <>
+               <MenuHeader bgActive={!isPadding} />
+               <div className={cn(s.wrap, { [s.isHomePage]: isPadding })}>
+                  <Switch>
+                     <Route path={'/'} exact component={HomePage} />
+                     <Route path={'/game'} component={GamePage} />
+                     <Route path={'/about'} component={AboutPage} />
+                     <Route path={'/contact'} component={ContactPage} />
+                     <Route render={() => <Redirect to={'404'} />} />
+                  </Switch>
+               </div>
+               <Footer />
+            </>
+         </Route>
+      </Switch>
    )
 }
