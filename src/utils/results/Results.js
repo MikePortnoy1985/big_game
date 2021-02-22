@@ -5,7 +5,6 @@ import YouLose from './assets/you-lose.png'
 import Draw from './assets/draw.png'
 
 export const Results = ({ type }) => {
-   debugger
    const [url, setUrl] = useState(null)
 
    useEffect(() => {
@@ -30,4 +29,3 @@ export const Results = ({ type }) => {
       </div>
    )
 }
-

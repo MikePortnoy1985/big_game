@@ -94,7 +94,7 @@ export const Board = () => {
 
    return (
       <div className={s.root}>
-         {type && <Results type={type}/>}
+         {type && <Results type={type} />}
          <div className={s.playerOne}>
             <PlayerBoard player={1} cards={firstPlayer} onClickCard={card => setChooseCard(card)} />
          </div>
