@@ -1,11 +1,13 @@
 import cn from 'classnames'
 import PropTypes from 'prop-types'
-import s from './Navbar.module.css'
 import { Arrow } from '../../utils/arrow/Arrow.js'
 import { useRouteMatch } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/pokemon.svg'
+import { ReactComponent as Login } from '../../assets/login.svg'
+import s from './Navbar.module.css'
 
-export const NavBar = ({ handleClick, bgActive, isActive }) => {
+
+export const NavBar = ({ handleClick, bgActive, isActive, handleLogin }) => {
    const match = useRouteMatch('/')
 
    return (
@@ -18,9 +20,14 @@ export const NavBar = ({ handleClick, bgActive, isActive }) => {
                </div>
             </div>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a className={cn(s.menuButton, { [s.active]: isActive === true })} onClick={handleClick}>
-               <span />
-            </a>
+            <div className={s.loginAndMenu} >
+               <div className={s.loginWrap} onClick={handleLogin}>
+                  <Login/>
+               </div>
+               <div className={cn(s.menuButton, { [s.active]: isActive === true })} onClick={handleClick}>
+                  <span />
+               </div>
+            </div>
          </div>
       </nav>
    )
