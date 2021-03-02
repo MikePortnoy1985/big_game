@@ -1,5 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
+import { NotificationContainer } from 'react-notifications'
 import { useLocation, Route, Switch, Redirect } from 'react-router-dom'
 import { HomePage } from './routes/home/Home'
 import { GamePage } from './routes/game/GamePage'
@@ -9,16 +10,17 @@ import { NotFoundPage } from './routes/notFound/NotFound'
 import { MenuHeader } from './components/04_menuHeader/MenuHeader'
 import { Footer } from './components/03_footer/Footer'
 import s from './App.module.css'
+import 'react-notifications/lib/notifications.css'
 
 export const App = () => {
    const location = useLocation()
    const isPadding = location.pathname === '/' || location.pathname === '/game/board'
 
    return (
-      <Switch>
-         <Route path={'/404'} component={NotFoundPage} />
-         <Route>
-            <>
+      <>
+         <Switch>
+            <Route path={'/404'} component={NotFoundPage} />
+            <Route>
                <MenuHeader bgActive={!isPadding} />
                <div className={cn(s.wrap, { [s.isHomePage]: isPadding })}>
                   <Switch>
@@ -30,8 +32,9 @@ export const App = () => {
                   </Switch>
                </div>
                <Footer />
-            </>
-         </Route>
-      </Switch>
+            </Route>
+         </Switch>
+         <NotificationContainer />
+      </>
    )
 }

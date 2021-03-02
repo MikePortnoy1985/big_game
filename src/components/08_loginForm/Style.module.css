@@ -53,3 +53,20 @@
     color: #191f27;
  
  }
+
+ .buttonWrapper {
+   display: flex;
+   justify-content: space-between;
+   height: 74px;
+ }
+
+ .answer {
+    width: 140px;
+    height: 100%;
+    color:#191f27;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-size: 20px;
+   padding: 27px 0px;
+        
+ }

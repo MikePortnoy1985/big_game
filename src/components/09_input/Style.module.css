@@ -11,10 +11,12 @@
     width: 100%;
     border: none;
     border-bottom: 1px solid #757575;
+    background: 'white' !important;
 }
 
 .input:focus {
     outline: none;
+    background: 'white' !important;
 }
 
 .label {

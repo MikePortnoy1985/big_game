@@ -14,3 +14,22 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 export const database = firebase.database()
+
+export const firebaseApi = {
+   submit: async (email, password) => {
+      const requestOprions = {
+         method: 'POST',
+         body: JSON.stringify({
+            email,
+            password,
+            returnToken: true,
+         }),
+      }
+      const response = await fetch(
+         `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`,
+         requestOprions,
+      )
+
+      return response.json()
+   },
+}

@@ -6,7 +6,6 @@ import { ReactComponent as Logo } from '../../assets/pokemon.svg'
 import { ReactComponent as Login } from '../../assets/login.svg'
 import s from './Navbar.module.css'
 
-
 export const NavBar = ({ handleClick, bgActive, isActive, handleLogin }) => {
    const match = useRouteMatch('/')
 
@@ -20,9 +19,9 @@ export const NavBar = ({ handleClick, bgActive, isActive, handleLogin }) => {
                </div>
             </div>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <div className={s.loginAndMenu} >
+            <div className={s.loginAndMenu}>
                <div className={s.loginWrap} onClick={handleLogin}>
-                  <Login/>
+                  <Login />
                </div>
                <div className={cn(s.menuButton, { [s.active]: isActive === true })} onClick={handleClick}>
                   <span />

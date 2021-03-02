@@ -6,6 +6,7 @@ import s from './Style.module.css'
 export const LoginForm = ({ onSubmit, isOpenModal }) => {
    const [email, setEmail] = React.useState('')
    const [password, setPassword] = React.useState('')
+   const [regOrLog, setRegOrLog] = React.useState('Sign in?')
 
    const handleSubmit = e => {
       e.preventDefault()
@@ -13,7 +14,7 @@ export const LoginForm = ({ onSubmit, isOpenModal }) => {
    }
 
    React.useEffect(() => {
-      if(!isOpenModal){
+      if (!isOpenModal) {
          setEmail('')
          setPassword('')
       }
@@ -37,8 +38,18 @@ export const LoginForm = ({ onSubmit, isOpenModal }) => {
             name={'password'}
             required
          />
-
-         <button className={s.button}>Login</button>
+         <div className={s.buttonWrapper}>
+            {regOrLog === 'Register ?' ? (
+               <button className={s.button}>'Sign in'</button>
+            ) : (
+               <button className={s.button}>'Sign up'</button>
+            )}
+            <div
+               className={s.answer}
+               onClick={e => setRegOrLog(prevState => (prevState === 'Register ?' ? 'Login ?' : 'Register ?'))}>
+               {regOrLog}
+            </div>
+         </div>
       </form>
    )
 }
