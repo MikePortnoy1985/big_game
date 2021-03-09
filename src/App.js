@@ -9,8 +9,9 @@ import { ContactPage } from './routes/contact/Contact'
 import { NotFoundPage } from './routes/notFound/NotFound'
 import { MenuHeader } from './components/04_menuHeader/MenuHeader'
 import { Footer } from './components/03_footer/Footer'
-import s from './App.module.css'
+import { PrivateRoute } from './components/10_privateRoute/PrivateRoute'
 import 'react-notifications/lib/notifications.css'
+import s from './App.module.css'
 
 export const App = () => {
    const location = useLocation()
@@ -25,9 +26,9 @@ export const App = () => {
                <div className={cn(s.wrap, { [s.isHomePage]: isPadding })}>
                   <Switch>
                      <Route path={'/'} exact component={HomePage} />
-                     <Route path={'/game'} component={GamePage} />
-                     <Route path={'/about'} component={AboutPage} />
-                     <Route path={'/contact'} component={ContactPage} />
+                     <PrivateRoute path={'/game'} component={GamePage} />
+                     <PrivateRoute path={'/about'} component={AboutPage} />
+                     <PrivateRoute path={'/contact'} component={ContactPage} />
                      <Route render={() => <Redirect to={'404'} />} />
                   </Switch>
                </div>

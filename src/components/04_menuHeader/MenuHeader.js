@@ -24,6 +24,7 @@ export const MenuHeader = ({ bgActive }) => {
       if (response.hasOwnProperty('error')) {
          NotificationManager.error(response.error.message, 'Wrong email or password!')
       } else {
+         localStorage.setItem('idToken', response.idToken)
          NotificationManager.success('Account created')
       }
    }
