@@ -1,5 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
+import { NotificationContainer } from 'react-notifications'
 import { useLocation, Route, Switch, Redirect } from 'react-router-dom'
 import { HomePage } from './routes/home/Home'
 import { GamePage } from './routes/game/GamePage'
@@ -8,6 +9,8 @@ import { ContactPage } from './routes/contact/Contact'
 import { NotFoundPage } from './routes/notFound/NotFound'
 import { MenuHeader } from './components/04_menuHeader/MenuHeader'
 import { Footer } from './components/03_footer/Footer'
+import { PrivateRoute } from './components/10_privateRoute/PrivateRoute'
+import 'react-notifications/lib/notifications.css'
 import s from './App.module.css'
 
 export const App = () => {
@@ -15,23 +18,24 @@ export const App = () => {
    const isPadding = location.pathname === '/' || location.pathname === '/game/board'
 
    return (
-      <Switch>
-         <Route path={'/404'} component={NotFoundPage} />
-         <Route>
-            <>
+      <>
+         <Switch>
+            <Route path={'/404'} component={NotFoundPage} />
+            <Route>
                <MenuHeader bgActive={!isPadding} />
                <div className={cn(s.wrap, { [s.isHomePage]: isPadding })}>
                   <Switch>
                      <Route path={'/'} exact component={HomePage} />
-                     <Route path={'/game'} component={GamePage} />
-                     <Route path={'/about'} component={AboutPage} />
-                     <Route path={'/contact'} component={ContactPage} />
+                     <PrivateRoute path={'/game'} component={GamePage} />
+                     <PrivateRoute path={'/about'} component={AboutPage} />
+                     <PrivateRoute path={'/contact'} component={ContactPage} />
                      <Route render={() => <Redirect to={'404'} />} />
                   </Switch>
                </div>
                <Footer />
-            </>
-         </Route>
-      </Switch>
+            </Route>
+         </Switch>
+         <NotificationContainer />
+      </>
    )
 }
