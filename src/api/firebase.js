@@ -16,8 +16,8 @@ firebase.initializeApp(firebaseConfig)
 export const database = firebase.database()
 
 export const firebaseApi = {
-   submit: async (email, password) => {
-      const requestOprions = {
+   registration: async (email, password) => {
+      const requestOptions = {
          method: 'POST',
          body: JSON.stringify({
             email,
@@ -27,9 +27,63 @@ export const firebaseApi = {
       }
       const response = await fetch(
          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`,
-         requestOprions,
+         requestOptions,
       )
 
+      return response.json()
+   },
+   signIn: async (email, password) => {
+      const requestOptions = {
+         method: 'POST',
+         body: JSON.stringify({
+            email,
+            password,
+            returnToken: true,
+         }),
+      }
+      const response = await fetch(
+         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`,
+         requestOptions,
+      )
+
+      return response.json()
+   },
+   addStartPokemons: async (id, pokemon, token) => {
+      const requestOptions = {
+         method: 'POST',
+         body: JSON.stringify(pokemon),
+      }
+      await fetch(
+         `https://big-game-558c7-default-rtdb.firebaseio.com/${id}/pokemons.json?auth=${token}`,
+         requestOptions,
+      )
+   },
+   getUser: async idToken => {
+      const requestOptions = {
+         method: 'POST',
+         body: JSON.stringify({
+            idToken,
+         }),
+      }
+      const response = await fetch(
+         `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseConfig.apiKey}`,
+         requestOptions,
+      )
+      return response.json()
+   },
+   getPokemons: async id => {
+      const response = await fetch(`https://big-game-558c7-default-rtdb.firebaseio.com/${id}/pokemons.json`)
+      return response.json()
+   },
+   putPokemonToCollection: async (id, pokemon) => {
+      const requestOptions = {
+         method: 'POST',
+         body: JSON.stringify(pokemon),
+      }
+      const response = await fetch(
+         `https://big-game-558c7-default-rtdb.firebaseio.com/${id}/pokemons/.json`,
+         requestOptions,
+      )
       return response.json()
    },
 }

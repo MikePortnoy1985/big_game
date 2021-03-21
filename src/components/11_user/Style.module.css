@@ -1,20 +1,3 @@
-.flex {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-wrap: wrap;
-}
-
-.buttonWrap {
-   align-self: flex-start;
-   width: 100%;
-   height: 15vh;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: space-around;
-}
-
 .button {
    text-align: center;
    text-transform: uppercase;
@@ -67,11 +50,4 @@
 .button:disabled {
    background: #fff;
    color: #191f27;
-}
-
-.card {
-   width: 268px;
-   height: 388px;
-   margin: 16px;
-   cursor: pointer;
 }

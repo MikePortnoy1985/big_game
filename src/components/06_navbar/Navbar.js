@@ -1,13 +1,17 @@
 import cn from 'classnames'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { Arrow } from '../../utils/arrow/Arrow.js'
 import { useRouteMatch } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/pokemon.svg'
 import { ReactComponent as Login } from '../../assets/login.svg'
+import { ReactComponent as User } from '../../assets/user.svg'
+import { Link } from 'react-router-dom'
 import s from './Navbar.module.css'
 
 export const NavBar = ({ handleClick, bgActive, isActive, handleLogin }) => {
    const match = useRouteMatch('/')
+   const { id, loading } = useSelector(state => state.user)
 
    return (
       <nav className={cn(s.navbar, { [s.bgActive]: bgActive })}>
@@ -20,9 +24,16 @@ export const NavBar = ({ handleClick, bgActive, isActive, handleLogin }) => {
             </div>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <div className={s.loginAndMenu}>
-               <div className={s.loginWrap} onClick={handleLogin}>
-                  <Login />
-               </div>
+               {!loading && !id && (
+                  <div className={s.loginWrap} onClick={handleLogin}>
+                     <Login />
+                  </div>
+               )}
+               {!loading && id && (
+                  <Link className={s.loginWrap} to='/user'>
+                     <User />
+                  </Link>
+               )}
                <div className={cn(s.menuButton, { [s.active]: isActive === true })} onClick={handleClick}>
                   <span />
                </div>

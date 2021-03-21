@@ -1,5 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
+import PropTypes from 'prop-types'
 import s from './Style.module.css'
 
 export const Modal = ({ title, children, handleCloseModal, isOpen }) => {
@@ -28,4 +29,11 @@ export const Modal = ({ title, children, handleCloseModal, isOpen }) => {
          </div>
       </div>
    )
+}
+
+Modal.propTypes = {
+   title: PropTypes.string.isRequired,
+   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+   handleCloseModal: PropTypes.func.isRequired,
+   isOpen: PropTypes.bool.isRequired,
 }
