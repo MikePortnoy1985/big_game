@@ -1,21 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { database as firebase } from '../api/firebase'
+import { firebaseApi } from '../api/firebase'
 import { api } from '../api/netlify'
 
-export const getPokemons = createAsyncThunk('gamePage/getPokemons', (_, thunkApi) => {
+export const getPokemons = createAsyncThunk('gamePage/getPokemons', async (_, thunkApi) => {
    try {
-      return new Promise((res, rej) =>
-         firebase.ref('pokemons').on('value', snapshot => {
-            if (snapshot.exists()) {
-               const response = snapshot.val()
-               res(response)
-            } else {
-               throw new Error('Some error occured')
-            }
-         }),
-      )
+      const { user } = thunkApi.getState()
+      const response = await firebaseApi.getPokemons(user.id)
+      if (response.hasOwnProperty('error')) {
+         throw new Error(response.error)
+      }
+      return response
    } catch (e) {
-      return thunkApi.rejectWithValue(e)
+      return thunkApi.rejectWithValue(e.message)
    }
 })
 
@@ -30,10 +26,10 @@ export const getEnemyPokemons = createAsyncThunk(`board/getEnemyPokemons`, async
 
 export const putPokeToCoolection = createAsyncThunk(`finish/putPokeToCoolection`, async ({ id }, thunkApi) => {
    try {
-      const state = thunkApi.getState().gamePage
-      const poke = state.enemyPokemons.find(item => item.id === id)
-      const newKey = firebase.ref('pokemons').push().key
-      await firebase.ref(`pokemons/${newKey}`).set(poke)
+      const { gamePage, user } = thunkApi.getState()
+      const poke = gamePage.enemyPokemons.find(item => item.id === id)
+
+      await firebaseApi.putPokemonToCollection(user.id, poke)
       return
    } catch (e) {
       return thunkApi.rejectWithValue(e.message)

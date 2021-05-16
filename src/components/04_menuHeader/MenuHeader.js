@@ -1,14 +1,19 @@
 import React from 'react'
+import { setId } from '../../store/UserSlice'
+import { useDispatch } from 'react-redux'
 import { NotificationManager } from 'react-notifications'
 import { Menu } from '../05_menu/Menu.js'
 import { NavBar } from '../06_navbar/Navbar'
 import { Modal } from '../07_modal/Modal'
 import { LoginForm } from '../08_loginForm/LoginForm.js'
 import { firebaseApi } from '../../api/firebase'
+import { herokuApi } from '../../api/heroku'
 
 export const MenuHeader = ({ bgActive }) => {
    const [isActive, setActive] = React.useState(null)
    const [isOpenModal, setOpenModal] = React.useState(false)
+
+   const dispatch = useDispatch()
 
    const handleClick = e => {
       e && setActive(!isActive)
@@ -18,14 +23,25 @@ export const MenuHeader = ({ bgActive }) => {
       setOpenModal(prevState => !prevState)
    }
 
-   const onSubmit = async values => {
+   const onSubmit = async (values, type) => {
       const { email, password } = values
-      const response = await firebaseApi.submit(email, password)
-      if (response.hasOwnProperty('error')) {
-         NotificationManager.error(response.error.message, 'Wrong email or password!')
+      let response
+      if (type === 'Sign Up') {
+         response = await firebaseApi.registration(email, password)
       } else {
-         localStorage.setItem('idToken', response.idToken)
-         NotificationManager.success('Account created')
+         response = await firebaseApi.signIn(email, password)
+      }
+      if (response.hasOwnProperty('error')) {
+         NotificationManager.error(response.error.message, 'Error')
+      } else {
+         if (type === 'Sign Up') {
+            const startPack = await herokuApi.starterPack()
+            startPack.data.forEach(pokemon => firebaseApi.addStartPokemons(response.localId, pokemon, response.idToken))
+         }
+         localStorage.setItem('BigGameIdToken', response.idToken)
+         dispatch(setId(response.localId))
+         NotificationManager.success('Success')
+         handleLogin()
       }
    }
 

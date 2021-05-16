@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { PokemonCard } from '../../../../../components/pokemonCard/PokemonCard'
 import s from './Style.module.css'
@@ -35,4 +36,10 @@ export const PlayerBoard = ({ player, cards, onClickCard }) => {
          })}
       </>
    )
+}
+
+PlayerBoard.propTypes = {
+   cards: PropTypes.array.isRequired,
+   onClickCard: PropTypes.func.isRequired,
+   player: PropTypes.number.isRequired,
 }

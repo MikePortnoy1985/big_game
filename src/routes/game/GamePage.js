@@ -9,6 +9,7 @@ import { PrivateRoute } from '../../components/10_privateRoute/PrivateRoute'
 export const GamePage = () => {
    const match = useRouteMatch()
    const { canRedirect } = useSelector(state => state.gamePage)
+
    return (
       <Switch>
          <PrivateRoute path={`${match.path}/`} exact component={StartPage} />
